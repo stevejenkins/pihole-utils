@@ -1,5 +1,5 @@
 # pihole6check - Pi-hole IPv6 Configuration Updater
-A script that checks the Pi-hole server's current IPv6 address and updates the IPv6 address configured in ```/etc/pihole/setupVars.conf``` if necessary.
+A script that checks the Pi-hole server's current IPv6 address, compares it to the IPv6 address configured in ```/etc/pihole/setupVars.conf```, then updates the configuration if necessary.
 
 # Why pihole6check?
 If your ISP changes your IPv6 Global Unicast Address, Pi-hole becomes misconfigured and times out when trying to load a page. Running pihole6check fixes the issue... at least until your ISP changes your IPv6 address again.
