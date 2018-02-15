@@ -1,4 +1,4 @@
-# pihole6check - Pi-hole IPv6 config updater
+# pihole6check - Pi-hole IPv6 Configuration Updater
 A script that checks the Pi-hole server's current IPv6 address and updates the IPv6 address configured in ```/etc/pihole/setupVars.conf``` if necessary.
 
 # Why pihole6check?
