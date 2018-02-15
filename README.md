@@ -11,7 +11,7 @@ If your ISP changes your Pi-hole host's IPv6 Global Unicast Address, Pi-hole bec
 1. Clone or download the ```pihole6check``` directory to your host's `/usr/local/bin/` directory.
 2. Run ```/usr/local/bin/pihole6check/pihole6check``` from the command line.
 
-Once you're satisfied with pihole6check's performance, set an hourly cron job to run ```pihole6check``` like this:
+Once you're satisfied with pihole6check's performance, set an hourly cron job for the ```root``` user to run ```pihole6check``` like this:
 
     @hourly /usr/local/bin/pihole6check/pihole6check > /dev/null 2>&1 #Check Pi-hole IPv6 configuration
     
