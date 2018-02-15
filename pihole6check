@@ -1,0 +1,55 @@
+#!/bin/bash
+
+###########################################################################
+
+# pihole6check
+# Checks the Pi-hole server's current IPv6 address and updates the
+# IPv6 address configured in /etc/pihole/setupVars.conf if necessary.
+# Fixes Pi-hole timeout issue reported at http://bit.ly/2EHWSFy.
+
+# Version 1.1 - Feb 14, 2018 - Steve Jenkins (stevejenkins.com)
+# Fixed awk statement for current Pi-hole configured address
+# Modernized shell script expressions
+# Added comments to script
+
+# Version 1.0 - linuxpng (https://pastebin.com/Wd0Qyfyw)
+# Original version of script 
+
+# USAGE
+# You can run ./pihole6check from the command line, or run it hourly by
+# adding the following to your crontab:
+
+# @hourly /usr/local/bin/pihole6check #Check Pi-hole IPv6 config
+
+###########################################################################
+
+# Only used for debugging
+# set -x
+
+# Check host's current Global IPv6 address
+current_ipv6=$(ifconfig | grep inet6 | sed -n '2p' | awk '{print $3}' | awk -F'/' '{print $1}')
+printf "\nCurrent IPv6 address: $current_ipv6\n"
+
+# Check IPv6 address configured in Pi-hole
+pihole_ipv6=$(grep IPV6 < /etc/pihole/setupVars.conf | awk -F '=' '{print $2}')
+printf "\nPi-hole configured IPv6 address: $pihole_ipv6\n"
+
+# Exit if IPv6 addresses match
+if [ "$current_ipv6" = "$pihole_ipv6" ]; then
+    printf '\nCurrent IPv6 addresses matches Pi-hole configuration. Exiting!\n'
+    exit 0
+
+else
+
+# Update the IPv6 address in setupVars.conf with the host's IPv6 address
+    printf '\nUpdating Pi-hole configuration...\n'
+    sed -i "s/IPV6_ADDRESS=.*/IPV6_ADDRESS=${current_ipv6}/g" /etc/pihole/setupVars.conf;
+
+# Run pihole -g to pick up changes
+    printf '\nReloading Pi-hole...\n\n'
+    pihole -g
+
+# All done!
+    printf '\nDone!\n'
+    exit 1
+fi
