@@ -4,6 +4,10 @@ A script that checks the Pi-hole server's current IPv6 address, compares it to t
 # Why pihole6check?
 If your ISP changes your Pi-hole host's IPv6 Global Unicast Address, Pi-hole becomes misconfigured and your clients will time out when trying to load certain pages. Running ```pihole6check``` fixes the issue... at least until your ISP changes your IPv6 address again!
 
+More info about what causes certain Pi-hole slowdowns can be found here:
+
+https://pi-hole.net/2018/02/02/why-some-pages-load-slow-when-using-pi-hole-and-how-to-fix-it/
+
 # Requirements
 ```pihole6check``` requires that you have <a target="_blank" href="https://github.com/pi-hole/pi-hole">Pi-hole</a> running on your system.
 
