@@ -19,7 +19,7 @@
 # You can run ./pihole6check from the command line, or run it hourly by
 # adding the following to your crontab:
 
-# @hourly /usr/local/bin/pihole6check #Check Pi-hole IPv6 config
+# @hourly /usr/local/bin/pihole6check/pihole6check > /dev/null 2>&1 #Check Pi-hole IPv6 configuration
 
 ###########################################################################
 
