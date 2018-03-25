@@ -1,0 +1,47 @@
+#!/bin/bash
+
+###########################################################################
+
+# pihole_static_sort
+# Sorts the dnsmasq configuration file used by Pi-hole's DHCP server
+# for static DHCP reservations.
+
+# Version 1.0 - Mar 25, 2018 - Steve Jenkins (stevejenkins.com)
+
+# USAGE
+# Run ./pihole_static_sort from the command line
+
+###########################################################################
+
+# Constants
+dnsmasq_dir='/etc/dnsmasq.d'
+static_file='04-pihole-static-dhcp.conf'
+
+# Only used for debugging
+# set -x
+
+# Backup original static file and make working copy
+printf "\nBacking up $dnsmasq_dir/$static_file to /tmp...\n"
+cp $dnsmasq_dir/$static_file /tmp/$static_file.orig
+cp $dnsmasq_dir/$static_file /tmp
+
+# Sort working copy
+printf "\nSorting static DHCP entries:\n"
+sort -u -n -t, -k2V /tmp/$static_file > /tmp/$static_file.sort
+
+# Display entry counts
+orig_file_count="$(wc -l < /tmp/$static_file.orig)"
+sort_file_count="$(wc -l < /tmp/$static_file.sort)"
+printf "$orig_file_count original entries!\n$sort_file_count sorted entries!\n"
+
+# Copy sorted file to original location
+printf "\nWriting sorted entries to $dnsmasq_dir/$static_file...\n"
+sudo cp -f /tmp/$static_file.sort $dnsmasq_dir/$static_file
+
+# Restarting dnsmasq service
+printf "\nRestarting dnsmasq service...\n"
+sudo service dnsmasq restart
+
+# All done!
+printf "\nDone!\n"
+exit
