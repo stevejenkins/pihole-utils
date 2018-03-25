@@ -1,6 +1,15 @@
 # pi-hole-utils - A Growing Collection of Utilities for the Pi-hole Ad Blocker
 This repo contains a number of helper scripts I use in conjunction with the popular [Pi-hole](https://pi-hole.net/) ad blocking server. Pi-hole relies on the popular [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) daemon, which allows it to optionally act as your local network's DHCP server, in addition to an effective local cacheing DNS server and blacklist-based ad blocker. For more info visit the Pi-hole [website](https://pi-hole.net/) or [GitHub repo](https://github.com/pi-hole/pi-hole).
 
+## Installing the pi-hole-utils Collection
+You can download the latest stable version of these Pi-hole helper scripts directly to your Raspberry Pi (or to any other Linux-based Pi-hole server) directly from GitHub. If you don't already have ```git``` installed on your system, do:
+
+```sudo apt-get update && sudo apt-get -y install git```
+
+then install the ```pi-hole-utils``` collection with:
+
+```sudo git clone https://github.com/stevejenkins/pi-hole-utils.git```
+
 Please feel free to improve these scripts and/or submit your own Pi-hole helper scripts for inclusion in this repo.
 
 ## pihole_static_sort - Sorts the Pi-hole Static DHCP Lease File
