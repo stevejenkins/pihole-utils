@@ -1,23 +1,40 @@
-# pihole6check - Pi-hole IPv6 Configuration Updater
+# pi-hole-utils - A growing collection of utilities for the Pi-hole Ad Blocker
+This repo contains a number of scripts I use in conjunction with the popular [Pi-hole](https://pi-hole.net/) ad blocking server. Pi-hole relies on the popular [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) daemon, which allows it to optionally act as your local network's DHCP server, in addition to an effective local cacheing DNS server and blacklist-based ad blocker.
+
+Please feel free to improve these scripts and/or submit your own Pi-hole helper scripts for inclusion in this repo.
+
+## pihole_dhcp_sort - Sorts the Pi-hole Static DHCP Lease File
+A script that sorts the DHCP static lease file (```/etc/dnsmasq.d/04-pihole-static-dhcp.conf```) by IP address for easier manual editing and verification. If this file is misconfigured or contains duplicates, dnsmasq won't start and Pi-hole won't issue DHCP addresses. The ability to visually scan through a sorted file is helpful when troubleshooting... and also makes those of us with OCD tendencies breathe easier when we cat the file. :)
+
+I plan on adding command-line options in a future version that allow a choice of whether to sort by MAC address, IP address, or hostname. But for now, if you're familiar with the Linux ```sort``` command, you can edit the appropriate line of the script to make the ```sort``` command do what you want before it writes the sorted file back to the ```/etc/dnsmasq.d``` directory.
+
+### Requirements
+```pihole_dhcp_sort``` requires that you have <a target="_blank" href="https://github.com/pi-hole/pi-hole">Pi-hole</a> running on your system.
+
+### Usage
+1. Clone or download the ```pi-hole-utils``` repo to your host's `/usr/local/bin/` directory.
+2. Run ```/usr/local/bin/pi-hole-utils/pihole_dhcp_sort``` from the command line.
+
+## pihole6check - Pi-hole IPv6 Configuration Updater
 A script that checks the Pi-hole server's current IPv6 address, compares it to the IPv6 address configured in ```/etc/pihole/setupVars.conf```, then updates the configuration if necessary.
 
-# Why pihole6check?
+### Why pihole6check?
 If your ISP changes your Pi-hole host's IPv6 Global Unicast Address, Pi-hole becomes misconfigured and your clients will time out when trying to load certain pages. Running ```pihole6check``` fixes the issue... at least until your ISP changes your IPv6 address again!
 
 More info about what causes certain Pi-hole slowdowns can be found here:
 
 https://pi-hole.net/2018/02/02/why-some-pages-load-slow-when-using-pi-hole-and-how-to-fix-it/
 
-# Requirements
+### Requirements
 ```pihole6check``` requires that you have <a target="_blank" href="https://github.com/pi-hole/pi-hole">Pi-hole</a> running on your system.
 
-# Usage
-1. Clone or download the ```pihole6check``` directory to your host's `/usr/local/bin/` directory.
-2. Run ```/usr/local/bin/pihole6check/pihole6check``` from the command line.
+### Usage
+1. Clone or download the ```pi-hole-utils``` repor to your host's `/usr/local/bin/` directory.
+2. Run ```/usr/local/bin/pi-hole-utils/pihole6check``` from the command line.
 
 Once you're satisfied with pihole6check's performance, set an hourly cron job for the ```root``` user to run ```pihole6check``` like this:
 
-    @hourly /usr/local/bin/pihole6check/pihole6check > /dev/null 2>&1 #Check Pi-hole IPv6 configuration
+    @hourly /usr/local/bin/pi-hole-utils/pihole6check > /dev/null 2>&1 #Check Pi-hole IPv6 configuration
     
-# Credits
-* Original version of the script written by *linuxpng* in <a target="_blank" href="https://discourse.pi-hole.net/t/some-websites-load-very-slow/1876/46">this thread</a> on the Pi-hole support forums.
+### Credits
+* Original version of the IPv6 addres-checking script written by *linuxpng* in <a target="_blank" href="https://discourse.pi-hole.net/t/some-websites-load-very-slow/1876/46">this thread</a> on the Pi-hole support forums.
