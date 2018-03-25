@@ -1,14 +1,14 @@
-# pi-hole-utils - A Growing Collection of Utilities for the Pi-hole Ad Blocker
+# pihole-utils - A Growing Collection of Utilities for the Pi-hole Ad Blocker
 This repo contains a collection of helper scripts I use in conjunction with the popular [Pi-hole](https://pi-hole.net/) ad blocking server. Pi-hole relies on the popular [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) daemon, which allows it to optionally act as your local network's DHCP server in addition to being an effective local cacheing DNS server and blacklist-based ad blocker. For more info visit the Pi-hole [website](https://pi-hole.net/) or [GitHub repo](https://github.com/pi-hole/pi-hole).
 
-## Installing the pi-hole-utils Collection
+## Installing the pihole-utils Collection
 You can download the latest stable version of these Pi-hole helper scripts directly to your Raspberry Pi (or to any other Linux-based Pi-hole server) directly from GitHub. If you don't already have ```git``` installed on your system, do:
 
 ```sudo apt-get update && sudo apt-get -y install git```
 
-then install the ```pi-hole-utils``` collection with:
+then install the ```pihole-utils``` collection with:
 
-```sudo git clone https://github.com/stevejenkins/pi-hole-utils.git```
+```sudo git clone https://github.com/stevejenkins/pihole-utils.git```
 
 Please feel free to improve these scripts and/or submit your own Pi-hole helper scripts for inclusion in this repo.
 
@@ -21,8 +21,8 @@ I plan on adding command-line options in a future version that allow a choice of
 ```pihole_static_sort``` requires that you have <a target="_blank" href="https://github.com/pi-hole/pi-hole">Pi-hole</a> running on your system.
 
 ### Usage
-1. Clone or download the ```pi-hole-utils``` repo to your host's `/usr/local/bin/` directory.
-2. Run ```/usr/local/bin/pi-hole-utils/pihole_static_sort``` from the command line.
+1. Clone or download the ```pihole-utils``` repo to your host's `/usr/local/bin/` directory.
+2. Run ```/usr/local/bin/pihole-utils/pihole_static_sort``` from the command line.
 
 ## pihole6check - Pi-hole IPv6 Configuration Updater
 A script that checks the Pi-hole server's current IPv6 address, compares it to the IPv6 address configured in ```/etc/pihole/setupVars.conf```, then updates the configuration if necessary.
@@ -38,12 +38,12 @@ https://pi-hole.net/2018/02/02/why-some-pages-load-slow-when-using-pi-hole-and-h
 ```pihole6check``` requires that you have <a target="_blank" href="https://github.com/pi-hole/pi-hole">Pi-hole</a> running on your system.
 
 ### Usage
-1. Clone or download the ```pi-hole-utils``` repor to your host's `/usr/local/bin/` directory.
-2. Run ```/usr/local/bin/pi-hole-utils/pihole6check``` from the command line.
+1. Clone or download the ```pihole-utils``` repor to your host's `/usr/local/bin/` directory.
+2. Run ```/usr/local/bin/pihole-utils/pihole6check``` from the command line.
 
 Once you're satisfied with pihole6check's performance, set an hourly cron job for the ```root``` user to run ```pihole6check``` like this:
 
-    @hourly /usr/local/bin/pi-hole-utils/pihole6check > /dev/null 2>&1 #Check Pi-hole IPv6 configuration
+    @hourly /usr/local/bin/pihole-utils/pihole6check > /dev/null 2>&1 #Check Pi-hole IPv6 configuration
     
 ### Credits
 * Original version of the IPv6 addres-checking script written by *linuxpng* in <a target="_blank" href="https://discourse.pi-hole.net/t/some-websites-load-very-slow/1876/46">this thread</a> on the Pi-hole support forums.
