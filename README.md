@@ -1,5 +1,5 @@
-# pi-hole-utils - A growing collection of utilities for the Pi-hole Ad Blocker
-This repo contains a number of scripts I use in conjunction with the popular [Pi-hole](https://pi-hole.net/) ad blocking server. Pi-hole relies on the popular [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) daemon, which allows it to optionally act as your local network's DHCP server, in addition to an effective local cacheing DNS server and blacklist-based ad blocker.
+# pi-hole-utils - A Growing Collection of Utilities for the Pi-hole Ad Blocker
+This repo contains a number of helper scripts I use in conjunction with the popular [Pi-hole](https://pi-hole.net/) ad blocking server. Pi-hole relies on the popular [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) daemon, which allows it to optionally act as your local network's DHCP server, in addition to an effective local cacheing DNS server and blacklist-based ad blocker. For more info visit the Pi-hole [website](https://pi-hole.net/) or [GitHub repo](https://github.com/pi-hole/pi-hole).
 
 Please feel free to improve these scripts and/or submit your own Pi-hole helper scripts for inclusion in this repo.
 
