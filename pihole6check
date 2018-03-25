@@ -27,7 +27,7 @@
 # set -x
 
 # Check host's current Global IPv6 address
-current_ipv6=$(ifconfig | grep inet6 | sed -n '1p' | awk '{print $3}' | awk -F'/' '{print $1}')
+current_ipv6=$(ifconfig | grep 'Scope:Global' | sed -n '1p' | awk '{print $3}' | awk -F'/' '{print $1}')
 printf "\nCurrent IPv6 address: $current_ipv6\n"
 
 # Check IPv6 address configured in Pi-hole
