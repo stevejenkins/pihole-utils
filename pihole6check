@@ -30,11 +30,12 @@
 # set -x
 
 # Check host's current Global IPv6 address
-current_ipv6=$(ifconfig | grep 'Scope:Global' | sed -n '1p' | awk '{print $3}' | awk -F'/' '{print $1}')
+current_ipv6=$(ip -6 addr show dev eth1 | awk '/inet6/{print $2}' | head -n 1 | awk -F'/' '{print $1}')
 printf "\nCurrent IPv6 address: $current_ipv6\n"
 
 # Check IPv6 address configured in Pi-hole
-pihole_ipv6=$(ip -6 addr show dev eth1 | awk '/inet6/{print $2}' | head -n 1 | awk -F'/' '{print $1}')
+pihole_ipv6=$(grep IPV6_ADDRESS < /etc/pihole/setupVars.conf | awk -F '=' '{print $2}')
+
 printf "\nPi-hole configured IPv6 address: $pihole_ipv6\n"
 
 # Exit if IPv6 addresses match
