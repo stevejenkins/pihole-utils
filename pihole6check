@@ -7,6 +7,9 @@
 # IPv6 address configured in /etc/pihole/setupVars.conf if necessary.
 # Fixes Pi-hole timeout issue reported at http://bit.ly/2EHWSFy.
 
+# Version 2.0 - Jan 20, 2019 - Steve Jenkins (stevejenkins.com)
+# Changed local IPv6 check method to support wider range of Linux variants
+
 # Version 1.1 - Feb 14, 2018 - Steve Jenkins (stevejenkins.com)
 # Fixed awk statement for current Pi-hole configured address
 # Modernized shell script expressions
@@ -31,7 +34,7 @@ current_ipv6=$(ifconfig | grep 'Scope:Global' | sed -n '1p' | awk '{print $3}' |
 printf "\nCurrent IPv6 address: $current_ipv6\n"
 
 # Check IPv6 address configured in Pi-hole
-pihole_ipv6=$(grep IPV6 < /etc/pihole/setupVars.conf | awk -F '=' '{print $2}')
+pihole_ipv6=$(ip -6 addr show dev eth1 | awk '/inet6/{print $2}' | head -n 1 | awk -F'/' '{print $1}')
 printf "\nPi-hole configured IPv6 address: $pihole_ipv6\n"
 
 # Exit if IPv6 addresses match
