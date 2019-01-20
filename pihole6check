@@ -7,6 +7,9 @@
 # IPv6 address configured in /etc/pihole/setupVars.conf if necessary.
 # Fixes Pi-hole timeout issue reported at http://bit.ly/2EHWSFy.
 
+# Version 2.1 - Jan 20, 2019 - Steve Jenkins (stevejenkins.com)
+# User can select which adapter is used for IPv6 check
+
 # Version 2.0 - Jan 20, 2019 - Steve Jenkins (stevejenkins.com)
 # Changed local IPv6 check method to support wider range of Linux variants
 
@@ -25,12 +28,17 @@
 # @hourly /usr/local/bin/pihole-utils/pihole6check > /dev/null 2>&1 #Check Pi-hole IPv6 configuration
 
 ###########################################################################
+# USER-CONTROLLED OPTIONS
+
+PIHOLE_ADAPTER=eth1
+
+###########################################################################
 
 # Only used for debugging
 # set -x
 
 # Check host's current Global IPv6 address
-current_ipv6=$(ip -6 addr show dev eth1 | awk '/inet6/{print $2}' | head -n 1 | awk -F'/' '{print $1}')
+current_ipv6=$(ip -6 addr show dev $PIHOLE_ADAPTER | awk '/inet6/{print $2}' | head -n 1 | awk -F'/' '{print $1}')
 printf "\nCurrent IPv6 address: $current_ipv6\n"
 
 # Check IPv6 address configured in Pi-hole
