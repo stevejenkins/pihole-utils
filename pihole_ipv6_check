@@ -12,10 +12,6 @@
 
 # Version 2.2 - Mar 24, 2019 - Steve Jenkins (stevejenkins.com)
 # Rename script for uniformity
-<<<<<<< HEAD:pihole_ipv6_check
-=======
-# Change default adapter to eth0
->>>>>>> 98b88fd794a99680e7901c282c793addf191e16c:pihole_ipv6_check
 # Add repo link in script comments
 
 # Version 2.1 - Jan 20, 2019 - Steve Jenkins (stevejenkins.com)
