@@ -54,7 +54,7 @@ In a dual Pi-hole setup, this script fetches the IPv6 of the remote Pi-hole from
 ### Requirements
 - Two <a target="_blank" href="https://github.com/pi-hole/pi-hole">Pi-holes</a> running on your LAN with valid IPv6 addresses.
 - Both Pi-holes running <a href="https://pi-hole.net/2018/06/09/ftldns-and-unbound-combined-for-your-own-all-around-dns-solution/" target="_blank">Unbound</a> as a local DNS resolver on port 5353.
-- SSH key-based authentication (login without password) configured so the local Pi-hole server running this script can log into the remote Pi-hole without a password. See: https://www.raspberrypi.org/documentation/remote-access/ssh/passwordless.md
+- <a target="_blank" href="https://www.raspberrypi.org/documentation/remote-access/ssh/passwordless.md">SSH key-based authentication</a> (login without password) configured so the local Pi-hole server running this script can log into the remote Pi-hole without a password. 
 
 ### Usage
 1. Clone or download the ```pihole-utils``` repor to your host's `/usr/local/bin/` directory.
