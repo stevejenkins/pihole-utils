@@ -65,5 +65,5 @@ It's vitally important that a local Pi-hole's ```setupVars.conf``` file contain 
 
 Once you've tested and are satisfied with ```pihole_dns4_sync```'s performance, set two cron jobs for the ```root``` user to run ```pihole_ipv6_check``` and ```pihole_dns4_sync``` 5 minutes apart like this:
 
-    30 * * * * /usr/local/bin/pihole-utils/pihole_ipv6_check > /dev/null 2>&1 #Check Pi-hole IPv6 configuration
-    35 * * * * /usr/local/bin/pihole-utils/pihole_dns4_sync > /dev/null 2>&1 #Sync dual Pi-hole IPv6 DNS4 config
+    30 * * * * sudo /usr/local/bin/pihole-utils/pihole_ipv6_check > /dev/null 2>&1 #Check Pi-hole IPv6 configuration
+    35 * * * * sudo /usr/local/bin/pihole-utils/pihole_dns4_sync > /dev/null 2>&1 #Sync dual Pi-hole IPv6 DNS4 config
