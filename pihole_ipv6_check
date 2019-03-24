@@ -2,10 +2,18 @@
 
 ###########################################################################
 
-# pihole6check
+# pihole_ipv6_check
+
 # Checks the Pi-hole server's current IPv6 address and updates the
 # IPv6 address configured in /etc/pihole/setupVars.conf if necessary.
 # Fixes Pi-hole timeout issue reported at http://bit.ly/2EHWSFy.
+
+# Part of https://github.com/stevejenkins/pihole-utils/
+
+# Version 2.2 - Mar 24, 2019 - Steve Jenkins (stevejenkins.com)
+# Rename script for uniformity
+# Change default adapter to eth0
+# Add repo link in script comments
 
 # Version 2.1 - Jan 20, 2019 - Steve Jenkins (stevejenkins.com)
 # User can select which adapter is used for IPv6 check
@@ -22,15 +30,15 @@
 # Original version of script 
 
 # USAGE
-# You can run ./pihole6check from the command line, or run it hourly by
+# You can run ./pihole_ipv6_check from the command line, or run it hourly by
 # adding the following to your crontab:
 
-# @hourly /usr/local/bin/pihole-utils/pihole6check > /dev/null 2>&1 #Check Pi-hole IPv6 configuration
+# @hourly /usr/local/bin/pihole-utils/pihole_ipv6_check > /dev/null 2>&1 #Check Pi-hole IPv6 configuration
 
 ###########################################################################
 # USER-CONTROLLED OPTIONS
 
-PIHOLE_ADAPTER=eth1
+PIHOLE_ADAPTER=eth0
 
 ###########################################################################
 
