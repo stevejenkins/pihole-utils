@@ -1,0 +1,70 @@
+#!/bin/bash
+
+###########################################################################
+
+# pihole_dns4_sync
+
+# In a dual Pi-hole setup, this script fetches the IPv6 of the remote Pi-hole
+# at sets it as the custom DNS4 setting (using port 5353) on the local Pi-hole.
+# This is useful in configurations where the Pi-holes use Unbound as a local
+# resolver on a LAN with dynamic IPv6 addressing.
+
+# REQUIREMENTS
+# Two Pi-holes on the same LAN with functioning IPv6 addresses.
+# Both Pi-holes running Unbound as a local DNS resolver on port 5353.
+# SSH key-based authentication (login without password) configured so the
+#    local Pi-hole server running this script can log into the remote Pi-hole
+#    without a password. See:
+#    https://www.raspberrypi.org/documentation/remote-access/ssh/passwordless.md
+
+# Version 1.0 - Mar 24, 2019 - Steve Jenkins (stevejenkins.com)
+# Original version of script
+
+# USAGE
+# You can run ./pihole_dns4_sync from the command line, or run it
+# hourly by adding the following to your crontab:
+
+# @hourly /usr/local/bin/pihole-utils/pihole_dns4_sync > /dev/null 2>&1 #Sync dual Pi-hole IPv6 DNS4 config
+
+###########################################################################
+# USER-CONTROLLED OPTIONS
+LOCAL_PIHOLE_CONFIG=/etc/pihole/setupVars.conf
+REMOTE_PIHOLE_USER=root
+REMOTE_PIHOLE_HOST=192.168.1.106
+UNBOUND_PORT=5353
+###########################################################################
+
+# Only used for debugging
+# set -x
+
+# Copy remote Pi-hole's setupVars.conf to temp folder
+printf "Fetching remote Pi-hole setupVars.conf...\n"
+scp "$REMOTE_PIHOLE_USER"@"$REMOTE_PIHOLE_HOST":/etc/pihole/setupVars.conf /tmp/setupVars.remote
+
+printf "\nComparing remote IPv6 address to local custom DNS4 entry...\n"
+
+# Check remote IPv6 address configured in Pi-hole
+pihole_ipv6_remote=$(grep IPV6_ADDRESS < /tmp/setupVars.remote | awk -F '=' '{print $2}')
+printf "Remote Pi-hole IPv6 address: %s\n" "$pihole_ipv6_remote"
+
+# Check local IPv6 address configured in Pi-hole
+dns4_ipv6_local=$(grep PIHOLE_DNS_4 < ${LOCAL_PIHOLE_CONFIG} | awk -F '=' '{print $2}' | awk -F '#' '{print $1}')
+printf "Local Pi-hole custom DNS4:   %s\n" "$dns4_ipv6_local"
+
+if [ "$pihole_ipv6_remote" = "$dns4_ipv6_local" ]; then
+	printf "\nAddresses match! Exiting.\n"
+	exit 1
+else
+	# Update the DNS4 entry in /etc/setupVars.conf with the remote Pi-hole's IPv6 address on Unbound port
+	printf '\nAddresses do not match! Updating Pi-hole configuration...\n'
+	grep -q 'PIHOLE_DNS_4' ${LOCAL_PIHOLE_CONFIG} && sed -i "s/PIHOLE_DNS_4=.*/PIHOLE_DNS_4=${pihole_ipv6_remote}#${UNBOUND_PORT}/" ${LOCAL_PIHOLE_CONFIG} || echo "PIHOLE_DNS_4=${pihole_ipv6_remote}#5353" >> ${LOCAL_PIHOLE_CONFIG}
+
+
+	# Run pihole -g to pick up changes
+    	printf '\nReloading Pi-hole...\n\n'
+    	pihole -g
+
+	# All done!
+    	printf '\nDone!\n'
+    	exit 1
+fi
