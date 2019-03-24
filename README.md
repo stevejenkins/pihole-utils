@@ -59,8 +59,11 @@ In a dual Pi-hole setup, this script fetches the IPv6 of the remote Pi-hole from
 ### Usage
 1. Clone or download the ```pihole-utils``` repor to your host's `/usr/local/bin/` directory.
 2. Set up "passwordless" SSH access from the local Pi-hole to the remote Pi-hole so that the local ```root``` user can access the remote Pi-hole via SSH without a password. This must be set up for the local ```root``` user, which allows the script to operate properly when executed via ```sudo```. Instructions can be found <a target="_blank" href="https://www.raspberrypi.org/documentation/remote-access/ssh/passwordless.md">here</a>.
-3. Run ```/usr/local/bin/pihole-utils/pihole_unbound_sync``` from the command line.
+3. Run ```/usr/local/bin/pihole-utils/pihole_dns4_sync``` from the command line.
 
-Once you're satisfied with pihole_ipv6_check's performance, set an hourly cron job for the ```root``` user to run ```pihole_ipv6_check``` like this:
+It's vitally important that a local Pi-hole's ```setupVars.conf``` file contain the host's correct IPv6 address before a remote Pi-hole fetches the address it via ```pihole_dns4_sync```. Therefore, I recommend that dynamic IPv6 addressed Pi-holes run the ```pihole_ipv6_check``` script via cron a few minutes before running the ```pihole_dns4_sync```  script. 
 
-    @hourly /usr/local/bin/pihole-utils/pihole_ipv6_check > /dev/null 2>&1 #Check Pi-hole IPv6 configuration
+Once you've tested and are satisfied with ```pihole_dns4_sync```'s performance, set two cron jobs for the ```root``` user to run ```pihole_ipv6_check``` and ```pihole_dns4_sync``` 5 minutes apart like this:
+
+    30 * * * * /usr/local/bin/pihole-utils/pihole_ipv6_check > /dev/null 2>&1 #Check Pi-hole IPv6 configuration
+    35 * * * * /usr/local/bin/pihole-utils/pihole_dns4_sync > /dev/null 2>&1 #Sync dual Pi-hole IPv6 DNS4 config
