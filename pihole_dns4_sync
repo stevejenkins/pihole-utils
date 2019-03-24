@@ -32,6 +32,7 @@ LOCAL_PIHOLE_CONFIG=/etc/pihole/setupVars.conf
 REMOTE_PIHOLE_USER=root
 REMOTE_PIHOLE_HOST=192.168.1.106
 UNBOUND_PORT=5353
+# REMEMBER TO SET UP SSH KEYS SO THIS HOST CAN SSH TO OTHER PIHOLE WITHOUT PASSWORD!
 ###########################################################################
 
 # Only used for debugging
