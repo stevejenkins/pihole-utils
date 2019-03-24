@@ -1,5 +1,5 @@
 # pihole-utils - A Growing Collection of Utilities for the Pi-hole Ad Blocker
-This repo contains a collection of helper scripts I use in conjunction with the popular [Pi-hole](https://pi-hole.net/) ad blocking server. Pi-hole relies on the popular [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) daemon, which allows it to optionally act as your local network's DHCP server in addition to being an effective local cacheing DNS server and blacklist-based ad blocker. For more info visit the Pi-hole [website](https://pi-hole.net/) or [GitHub repo](https://github.com/pi-hole/pi-hole).
+This repo contains a collection of helper scripts I use in conjunction with the popular [Pi-hole](https://pi-hole.net/) ad blocking server. For more info visit the Pi-hole [website](https://pi-hole.net/) or [GitHub repo](https://github.com/pi-hole/pi-hole).
 
 ## Installing the pihole-utils Collection
 You can download the latest stable version of these Pi-hole helper scripts directly to your Raspberry Pi (or to any other Linux-based Pi-hole server) directly from GitHub. If you don't already have ```git``` installed on your system, do:
