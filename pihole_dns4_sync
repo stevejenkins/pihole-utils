@@ -53,7 +53,7 @@ dns4_ipv6_local=$(grep PIHOLE_DNS_4 < ${LOCAL_PIHOLE_CONFIG} | awk -F '=' '{prin
 printf "Local Pi-hole custom DNS4:   %s\n" "$dns4_ipv6_local"
 
 if [ "$pihole_ipv6_remote" = "$dns4_ipv6_local" ]; then
-	printf "\nAddresses match! Exiting.\n"
+	printf "\nIPv6 addresses match! No action required.\n"
 	exit 1
 else
 	# Update the DNS4 entry in /etc/setupVars.conf with the remote Pi-hole's IPv6 address on Unbound port

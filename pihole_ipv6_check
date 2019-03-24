@@ -46,16 +46,16 @@ PIHOLE_ADAPTER=eth1
 
 # Check host's current Global IPv6 address
 current_ipv6=$(ip -6 addr show dev $PIHOLE_ADAPTER | awk '/inet6/{print $2}' | head -n 1 | awk -F'/' '{print $1}')
-printf "\nCurrent IPv6 address: $current_ipv6\n"
+printf "\nCurrent adapter IPv6 address:    $current_ipv6\n"
 
 # Check IPv6 address configured in Pi-hole
 pihole_ipv6=$(grep IPV6_ADDRESS < /etc/pihole/setupVars.conf | awk -F '=' '{print $2}')
 
-printf "\nPi-hole configured IPv6 address: $pihole_ipv6\n"
+printf "Pi-hole configured IPv6 address: $pihole_ipv6\n"
 
 # Exit if IPv6 addresses match
 if [ "$current_ipv6" = "$pihole_ipv6" ]; then
-    printf '\nCurrent IPv6 addresses matches Pi-hole configuration. Exiting!\n'
+    printf '\nIPv6 addresses match! No action required.\n'
     exit 0
 
 else
